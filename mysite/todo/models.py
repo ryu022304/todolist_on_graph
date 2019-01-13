@@ -8,4 +8,4 @@ class Post(models.Model):
     created_date = models.DateTimeField(
         auto_now_add=True,
         verbose_name="登録日時",
-        )
+    )

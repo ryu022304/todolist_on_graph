@@ -24,3 +24,43 @@ td {
     color: #a52a2a;
     background: #ffc0cb;
 }
+.container1{
+    width: 30%;
+    float: right;
+}
+.container2{
+    width: 70%;
+    float: left;
+}
+.drag-and-drop {
+    cursor: move;
+    position: absolute;
+    z-index: 1000;
+}
+.drag {
+    z-index: 1001;
+}
+.graph-area {
+    background: white;
+}
+#red-box{
+  position: relative;
+  top: 0;
+  height: 50px;
+  width: 50px;
+  background-color:#f48fb1;
+}
+#blue-box{
+  position: relative;
+  top: 0;
+  height: 50px;
+  width: 50px;
+  background-color:#64b5f6;
+}
+#yellow-box{
+  position: relative;
+  top: 0;
+  height: 50px;
+  width: 50px;
+  background-color:#ffe082;
+}

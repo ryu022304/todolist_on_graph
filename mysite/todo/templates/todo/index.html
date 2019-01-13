@@ -11,24 +11,26 @@
             <!-- static配下のCSSファイルを参照 -->
             <link rel="stylesheet"
             href="{% static 'css/todo.css' %}" >
+
+            <!-- statics配下のJSファイルを参照 -->
+            <script src="{% static 'js/move.js' %}"></script>
+            <script src="{% static 'js/graph.js' %}"></script>
     </head>
     <body>
+        <h2>ToDo List on Graph</h2>
         <!-- 固定枠 -->
-        <div class="container">
-            <h2>ToDoリスト</h2>
+        <div class="container1">
             <!-- ToDoアプリ Post処理 -->
             <form action="{% url 'add' %}" method="post">
                 {% csrf_token %}
                 <div class="text">
                         {{ form.message }}
+                        <!-- ToDo追加ボタン -->
+                        <button type="submit" class="button">
+                            ToDo追加
+                        </button>
                 </div>
 
-                <!-- ToDo追加ボタン -->
-                <div class="form-group">
-                    <button type="submit" class="button">
-                        ToDo追加
-                    </button>
-                </div>
             </form>
 
             <!-- Todoリスト表示 -->
@@ -52,5 +54,16 @@
                 </tbody>
             </table>
         </div>
+
+        <!-- グラフ表示エリア -->
+        <div class="container2">
+          <canvas id="cv" class="graph-area" width="1000" height="650">
+            <!--Canvas機能に対応していないブラウザへの備え（2）-->
+            Canvas機能に対応したブラウザでアクセスしてください。
+            <div class="drag-and-drop" id="red-box">red</div>
+            <div class="drag-and-drop" id="blue-box">blue</div>
+            <div class="drag-and-drop" id="yellow-box">yellow</div>
+          </canvas>
+        </<div>
     </body>
 </html>
