@@ -23,16 +23,22 @@
             <!-- ToDoアプリ Post処理 -->
             <form action="{% url 'add' %}" method="post">
                 {% csrf_token %}
-                <div class="text">
+                <div class="text" id="text-area">
                         {{ form.message }}
                         <!-- ToDo追加ボタン -->
                         <button type="submit" class="button">
                             ToDo追加
                         </button>
                 </div>
-
             </form>
-
+              <div class="text" id="axis-area">
+                <input type="text" size="20" maxlength="40" id="axis">
+                <!-- 軸追加ボタン -->
+                <button type="submit" class="button" id="px-axis">+X軸</button>
+                <button type="submit" class="button" id="mx-axis">-X軸</button>
+                <button type="submit" class="button" id="py-axis">+Y軸</button>
+                <button type="submit" class="button" id="my-axis">-Y軸</button>
+              </div>
             <!-- Todoリスト表示 -->
             <table class="todo list table">
                 <tbody>
@@ -60,9 +66,6 @@
           <canvas id="cv" class="graph-area" width="1000" height="650">
             <!--Canvas機能に対応していないブラウザへの備え（2）-->
             Canvas機能に対応したブラウザでアクセスしてください。
-            <div class="drag-and-drop" id="red-box">red</div>
-            <div class="drag-and-drop" id="blue-box">blue</div>
-            <div class="drag-and-drop" id="yellow-box">yellow</div>
           </canvas>
         </<div>
     </body>

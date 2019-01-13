@@ -8,9 +8,25 @@ window.addEventListener('DOMContentLoaded',
       drawLine(context);
 
       // 図形の描画
-      //test.draw();
-      makeTodo('test');
-      makeTodo('test2');
+      makeTodo();
+
+      // 軸名の設定
+      document.getElementById("px-axis").onclick = function() {
+        axis['px'] = document.getElementById("axis").value;
+        reset(context);
+      };
+      document.getElementById("mx-axis").onclick = function() {
+        axis['mx'] = document.getElementById("axis").value;
+        reset(context);
+      };
+      document.getElementById("py-axis").onclick = function() {
+        axis['py'] = document.getElementById("axis").value;
+        reset(context);
+      };
+      document.getElementById("my-axis").onclick = function() {
+        axis['my'] = document.getElementById("axis").value;
+        reset(context);
+      };
 
       // マウスでクリックされた時の動作
       cv.addEventListener('mousedown', onDown, false);
@@ -19,6 +35,10 @@ window.addEventListener('DOMContentLoaded',
     }
   }
 );
+
+// 変数
+var todo_list = [];
+var axis = {'px':'+X','mx':'-X','py':'+Y','my':'-Y'};
 
 // TODOリストのコンストラクタ設定
 var Todo = function(cv, text){
@@ -48,24 +68,19 @@ Todo.prototype = {
       var offsetY = this.cv.getBoundingClientRect().top;
       x = cx - offsetX;
       y = cy - offsetY;
-      //console.log(x);
-      //console.log(y);
-      //console.log(this.x);
-      //console.log(this.y);
-      //ctx.fillRect(x, y, metrics.width, -30);
       // 範囲は微調整した。あとで修正したい
-      return (this.x < x && (this.x + metrics.width) > x && (this.y-48) < y && this.y > y);
+      return (this.x < x && (this.x + metrics.width) > x && (this.y-24) < y && this.y > y);
     }
 }
 
-//var dragging = false;
-var todo_list = [];
-
-function makeTodo(text){
+function makeTodo(){
+  text = document.getElementsByClassName("message");
   var cv = document.querySelector('#cv');
   var context = cv.getContext('2d');
-  todo = new Todo(cv,text);
-  todo_list.push(todo);
+  for (var i = 0;i < text.length;i++) {
+    todo = new Todo(cv,text[i].innerText);
+    todo_list.push(todo);
+  }
   for (var i = 0;i < todo_list.length;i++) {
     todo_list[i].draw();
   }
@@ -83,23 +98,23 @@ function drawLine(c){
   c.lineTo(500, 620);
   // パスに沿って直線を描画（3）
   c.stroke();
+  // 軸の記述
+  c.font = "20px serif";
+  c.fillText(axis['py'], 500, 30, 200);
+  c.fillText(axis['my'], 500, 600, 200);
+  c.fillText(axis['px'], 800, 300, 200);
+  c.fillText(axis['mx'], 50, 300, 200);
 }
 
 function onDown(e) {
-  // キャンバスの左上端の座標を取得
-  var cv = document.querySelector('#cv');
-  var offsetX = cv.getBoundingClientRect().left;
-  var offsetY = cv.getBoundingClientRect().top;
-
   // マウスが押された座標を取得
-  x = e.clientX - offsetX;
-  y = e.clientY - offsetY;
+  var x = e.clientX;
+  var y = e.clientY;
 
   // オブジェクト上の座標かどうかを判定
   for (var i = 0;i < todo_list.length;i++) {
     if (todo_list[i].isTouched(x,y)) {
       todo_list[i].dragging = true; // ドラッグ開始
-      console.log(todo_list[i].text);
       break;
     }
   }
@@ -110,8 +125,10 @@ function onMove(e) {
   var context = cv.getContext('2d');
 
   // マウスが移動した先の座標を取得
-  x = e.clientX;
-  y = e.clientY;
+  var offsetX = cv.getBoundingClientRect().left;
+  var offsetY = cv.getBoundingClientRect().top;
+  var x = e.clientX - offsetX;
+  var y = e.clientY - offsetY;
 
   // ドラッグが開始されていればオブジェクトの座標を更新して再描画
   for (var i = 0;i < todo_list.length;i++) {
@@ -130,12 +147,11 @@ function onUp(e) {
       todo_list[i].dragging = false; // ドラッグ終了
     }
   }
-  //console.log(todo_list);
 }
 
 function reset(ctx) {
   ctx.clearRect(0, 0, cv.width, cv.height);
-  ctx.stroke();
+  drawLine(ctx);
   for (var i = 0;i < todo_list.length;i++) {
     if (!todo_list[i].dragging) {
       todo_list[i].draw();
