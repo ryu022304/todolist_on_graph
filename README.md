@@ -23,3 +23,6 @@ Twitterで見かけた画像が面白かったので再現して見た、Django�
 
 ### 参考  
 [はじめてのDjango Part2 [実践編] ToDoリスト作成](https://qiita.com/morudara/items/f1b45cb0cda863d4b193)
+
+### 備考  
+急いで作成したので、バグは折を見て修正する
