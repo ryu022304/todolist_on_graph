@@ -19,7 +19,7 @@ Twitterで見かけた画像が面白かったので再現して見た、Django�
 4. TODO内容をドラッグして整理する
 
 ###  例
-<img width="1440" alt="2019-01-14 7 19 33" src="https://user-images.githubusercontent.com/33801040/51091478-74b17700-17ce-11e9-868e-afae6ec1d68c.png">
+![todo](https://user-images.githubusercontent.com/33801040/51103249-5fb40280-1825-11e9-8661-cc769b23c86b.gif)
 
 ### 参考  
 [はじめてのDjango Part2 [実践編] ToDoリスト作成](https://qiita.com/morudara/items/f1b45cb0cda863d4b193)
